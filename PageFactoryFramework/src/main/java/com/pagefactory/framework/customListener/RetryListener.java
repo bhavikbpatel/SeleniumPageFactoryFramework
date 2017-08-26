@@ -9,6 +9,7 @@ import org.testng.internal.annotations.IAnnotationTransformer;
 
 public class RetryListener implements IAnnotationTransformer {
 
+	//RetryListener Class that inturn calls the Retry class for managing the iterations
 	@SuppressWarnings("rawtypes")
 	public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
 		IRetryAnalyzer retry = annotation.getRetryAnalyzer();

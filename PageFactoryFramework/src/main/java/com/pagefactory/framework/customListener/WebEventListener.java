@@ -11,6 +11,10 @@ public class WebEventListener implements WebDriverEventListener {
 
 	public static final Logger log = Logger.getLogger(WebEventListener.class.getName());
 
+	/*This method will log all the items that are mentioned in each of the event
+	 * This will reduce the overhead of adding loggers in each and every step in test
+	 * method as well as Page Factory classes*/
+	
 	public void beforeAlertAccept(WebDriver driver) {
 		// TODO Auto-generated method stub
 

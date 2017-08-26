@@ -12,6 +12,7 @@ public class Retry implements IRetryAnalyzer {
 	private int retrycount = 0;
 	private int maxretrycount = 2;
 
+	//Logic for retrying the test with a particular result status.
 	public boolean retry(ITestResult result) {
 		if (retrycount < maxretrycount) {
 			log("Retrying test " + result.getName() + " with status "
