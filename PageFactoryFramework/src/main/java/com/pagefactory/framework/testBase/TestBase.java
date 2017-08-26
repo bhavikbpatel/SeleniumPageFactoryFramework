@@ -40,10 +40,7 @@ public class TestBase {
 	public WebDriver dr;
 	public EventFiringWebDriver driver;
 	public WebEventListener eventListener;
-	// String url="http://automationpractice.com/index.php";
-	// String url =
-	// "file:///C:/practice/E%20Shopper%20Free%20Website%20Template%20-%20Free-CSS.com/Eshopper/index.html";
-	// String browser = "chrome";
+	
 	ExcelReader excel;
 	Listener listener;
 	Properties or = new Properties();
@@ -53,6 +50,7 @@ public class TestBase {
 
 	public static final Logger log = Logger.getLogger(TestBase.class.getName());
 
+	//Reading all the properties in or from the config.properties
 	public void loadconfigurations() throws IOException {
 		File file = new File(
 				System.getProperty("user.dir") + "/src/main/java/com/pagefactory/framework/config/config.properties");
@@ -60,6 +58,8 @@ public class TestBase {
 		or.load(fis);
 	}
 
+	//We have written this static method, so that it is loaded only once in the memory
+	//the Extent report will be created only once, no matter wherever we do initialization
 	static {
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
@@ -67,11 +67,10 @@ public class TestBase {
 				+ formater.format(calendar.getTime()) + ".html", false);
 	}
 
+	//This method needs to be called from all the Tests so that the browser is initialized with
+	//the URL. Also the Log4J is initialized
 	public void init() throws IOException {
 		loadconfigurations();
-		// extent = new ExtentReports(System.getProperty("user.dir") +
-		// "/src/main/java/com/pagefactory/framework/report/"
-		// + System.currentTimeMillis() + ".html", false);
 		selectBrowser(or.getProperty("browser"));
 		// listener = new Listener(driver);
 		getURL(or.getProperty("url"));
@@ -79,6 +78,9 @@ public class TestBase {
 		PropertyConfigurator.configure(log4jConfPath);
 	}
 
+
+	//Select Browser is required for selecting the browser based on the argument passed.
+	//This method can be extended by adding further if conditions
 	public void selectBrowser(String browser) {
 		if (browser.equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/chromedriver.exe");
@@ -91,6 +93,7 @@ public class TestBase {
 		}
 	}
 
+	//The URL will be used to open in the browser of driver(WebDriver)
 	public void getURL(String url) {
 		log("Navigating to the URL:" + url);
 		driver.get(url);
@@ -98,6 +101,7 @@ public class TestBase {
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
 
+	//Load all the data in the String[][] using the getDataFromSheet method of ExcelReader class
 	public String[][] getData(String sheetname, String excelname) {
 		String path = System.getProperty("user.dir") + "/src/main/java/com/pagefactory/framework/data/" + excelname;
 		excel = new ExcelReader(path);
@@ -106,12 +110,14 @@ public class TestBase {
 
 	}
 
+	//Wait for the visibility of the element for a certain amount of time
 	public void waitforElement(long timeoutseconds, WebElement element) {
 
 		WebDriverWait wait = new WebDriverWait(driver, timeoutseconds);
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 
+	//Method used for getting the screen capture with the name in a particular format
 	public void getScreenCapture(String name) {
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
@@ -132,17 +138,21 @@ public class TestBase {
 
 	}
 
+	//Method retrieves all the windows open for a driver in a iterator
 	public Iterator<String> getAllWindows() {
 		Set<String> windows = driver.getWindowHandles();
 		Iterator<String> itr = windows.iterator();
 		return itr;
 	};
 
+	//Logging method so that the same log is added in logger as well as syso
 	public void log(String data) {
 		log.info(data);
 		Reporter.log(data);
 	}
 
+	
+	//Method to be used by After Method, for getting the status of the test execution
 	public void getResult(ITestResult result) {
 		if (result.getStatus() == ITestResult.SUCCESS) {
 			test.log(LogStatus.PASS, result.getName() + " test is PASSING");
@@ -156,6 +166,7 @@ public class TestBase {
 		}
 	}
 
+	//Captures the screen capture and returns the path of the created file
 	public String captureScreen(String filename) {
 		if (filename == "") {
 			filename = "blank";
