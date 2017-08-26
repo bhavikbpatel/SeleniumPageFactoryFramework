@@ -1,0 +1,27 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+ <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="RegressionSuite" preserve-order="true" parallel="classes"
+	thread-count="3">
+
+	<listeners>
+		<!-- <listener class-name="com.pagefactory.framework.customListener.Listener"></listener> -->
+		<listener class-name="com.pagefactory.framework.customListener.RetryListener"></listener>
+	</listeners>
+
+	<test name="CompleteTest1">
+		<classes>
+			<class name="com.pagefactory.framework.homepage.TC002_VerifyCreateAccount" />
+			<class
+				name="com.pagefactory.framework.homepage.TC003_VerifyLoginWithDifferentData" />
+			<class name="com.pagefactory.framework.homepage.TC004_VerifyExternalLink" />
+		</classes>
+	</test>
+
+	<test name="CompleteTest2">
+		<classes>
+			<class name="com.pagefactory.framework.homepage.TC002_VerifyCreateAccount" />
+			<class name="com.pagefactory.framework.homepage.TC004_VerifyExternalLink" />
+		</classes>
+	</test>
+</suite>
