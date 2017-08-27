@@ -31,7 +31,7 @@ public class TC002_VerifyCreateAccount extends TestBase {
 			homepage.clickSignInbutton();
 			String strexpectedPhoneNumber = "+2 95 01 88 821";
 
-			createaccount.createLogin("Hasu", "hasu019@gmail.com", "password");
+			createaccount.createLogin("Man", "man@gmail.com", "password");
 			String actualPhoneNumber = createaccount.getPhoneNumber();
 
 			Assert.assertEquals(actualPhoneNumber, strexpectedPhoneNumber);

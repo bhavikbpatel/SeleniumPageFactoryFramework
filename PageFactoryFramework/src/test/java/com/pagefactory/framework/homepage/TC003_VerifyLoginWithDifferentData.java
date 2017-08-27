@@ -31,9 +31,14 @@ public class TC003_VerifyLoginWithDifferentData extends TestBase {
 		return testRecords;
 	}
 
+	/*Dataprovider annotation parameter will help us execute the test with all the data in the 
+	 * TestData.xlsx Excel sheet. If runmode = y, then only the data will be considered for execution 
+	 * otherwise will be skipped*/
+	//This is a basic test to test the dataprovider
 	@Test(dataProvider = "createAccountData")
 	public void createAccountDifferentRecordsTest(String strName, String stremail, String strpass, String runmode) {
 		if (runmode.equalsIgnoreCase("n")) {
+			//This execption that is raised will be displayed in Log as well as the Extent Reports
 			throw new SkipException("This record is marked this as no Run ");
 		}
 		homepage = new HomePage(driver);
@@ -41,6 +46,7 @@ public class TC003_VerifyLoginWithDifferentData extends TestBase {
 		createaccount = new CreateAccount(driver);
 		log("------------------- Starting createAccountDifferentRecordsTest Test -------------------");
 		homepage.clickSignInbutton();
+		//To fail this test change the below phone number
 		String strexpectedPhoneNumber = "+2 95 01 88 821";
 
 		createaccount.createLogin(strName, stremail, strpass);
