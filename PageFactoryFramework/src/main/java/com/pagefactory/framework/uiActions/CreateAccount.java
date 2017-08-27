@@ -51,6 +51,8 @@ public class CreateAccount extends TestBase {
 		return (phoneNumber.getText());
 	}
 
+//Below three methods will explain the concept of decendant/child, siblings for getting the exact xpath
+	
 	public void gotoNavigation(String menuname) {
 
 		driver.findElement(By
@@ -62,7 +64,6 @@ public class CreateAccount extends TestBase {
 
 	public void clickonSportswearProduct(String product) {
 
-		//.//*[@id='accordian']/descendant::div[@class='panel panel-default']/descendant::div[@id='sportswear']/descendant::div[@class='panel-body']/descendant::ul/child::li/child::a[contains(text(),'Nike')]
 		driver.findElement(By
 				.xpath("//*[@id='accordian']/descendant::div[@class='panel panel-default']/descendant::div[@id='sportswear']/descendant::div[@class='panel-body']/descendant::ul/child::li/child::a[contains(text(),'"
 						+ product + "')]")).click();
