@@ -30,6 +30,7 @@ public class CreateAccount extends TestBase {
 	@FindBy(xpath = "//*[@id='header']/div[1]/div/div/div[1]/div/ul/li[1]/a")
 	WebElement phoneNumber;
 
+	
 	public CreateAccount(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -67,6 +68,7 @@ public class CreateAccount extends TestBase {
 		driver.findElement(By
 				.xpath("//*[@id='accordian']/descendant::div[@class='panel panel-default']/descendant::div[@id='sportswear']/descendant::div[@class='panel-body']/descendant::ul/child::li/child::a[contains(text(),'"
 						+ product + "')]")).click();
+		
 		log("Clicked on "+product+" of Sportswear");
 	}
 	
